@@ -1,20 +1,10 @@
 #!/usr/bin/env bash
 
-# There's a bug in bison 2.7 that requires us to use 2.5 to build the of13 softswitch. This grabs an old version of bison, installs it, and then prevents mininet from trying to override our fixed version
-wget http://launchpadlibrarian.net/122078648/libbison-dev_2.5.dfsg-3ubuntu1_amd64.deb
-wget wget http://launchpadlibrarian.net/122078647/bison_2.5.dfsg-3ubuntu1_amd64.deb
-sudo dpkg -i libbison-dev_2.5.dfsg-3ubuntu1_amd64.deb
-sudo dpkg -i bison_2.5.dfsg-3ubuntu1_amd64.deb
-sudo apt-mark hold libbison-dev bison
-
 git clone git://github.com/mininet/mininet
 pushd mininet
-git checkout -b 2.1.0 2.1.0
-sed -i 's/\<bison\>//g' util/install.sh 
+git checkout -b 2.1.0p2 2.1.0p2
 # Install 1.3 softswitch, kernel module, wireshark disector, openvswitch, mininet
-. util/install.sh -3f -mwvn
+. util/install.sh -3 -mwvn
 
 # cleanup
 popd
-rm *.deb
-rm nbeesrc*.zip
